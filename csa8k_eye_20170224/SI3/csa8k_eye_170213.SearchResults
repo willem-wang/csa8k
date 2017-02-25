@@ -1,0 +1,5 @@
+---- runautoset Æ¥Åä (4 in 2 ÎÄ¼þ) ----
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    connect(this,SIGNAL(runautoset()),this, SLOT(on_pushButton_autoset_clicked()));
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    //emit runautoset();
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    //emit runautoset();
+Mainwindow.h (e:\qt_project\csa8k_eye_type_show_20170213\include):    void runautoset();
