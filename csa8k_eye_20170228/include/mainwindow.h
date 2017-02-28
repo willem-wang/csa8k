@@ -83,13 +83,13 @@ private slots:
 
     void switch2table(int);
 
-    void read_calibrate_data(BYTE *buf);
+    void read_calibrate_data();
 
-//    void write_calibrate_data();
+    void deal_calibrate_data();
 
-//    void serial_dmesg_clear();
+    void write_calibrate_data();
 
-//    QByteArray serial_dmesg_read();
+    void translation_data();
 
     void on_pushButton_bias_translate_clicked();
 
@@ -106,8 +106,10 @@ signals:
     void sendSnInfo(QString);
     void telnetmessage();
 	void savedata();
-    void runautoset();
     void calibrate_data();
+    void totranslationdata();
+    void towritedata();
+    void toreaddata();
 };
 
 #endif // MAINWINDOW_H

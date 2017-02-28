@@ -1,0 +1,5 @@
+---- calibrate_data Æ¥Åä (4 in 2 ÎÄ¼þ) ----
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    connect(this,SIGNAL(calibrate_data()),this, SLOT(deal_calibrate_data()));
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):        emit calibrate_data();
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    emit calibrate_data();
+Mainwindow.h (e:\qt_project\csa8k_eye_type_show_20170213\include):    void calibrate_data();

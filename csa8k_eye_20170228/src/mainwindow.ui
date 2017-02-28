@@ -654,6 +654,9 @@ font: 16pt &quot;Arial&quot;;</string>
                    <property name="text">
                     <string>EYE_AOPTPWRDBM</string>
                    </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
@@ -707,9 +710,12 @@ font: 16pt &quot;Arial&quot;;</string>
                   </widget>
                  </item>
                  <item row="12" column="0">
-                  <widget class="QCheckBox" name="EYE_EXTINCTPCT_chb">
+                  <widget class="QCheckBox" name="EYE_EXTINCTDB_chb">
                    <property name="text">
-                    <string>EYE_EXTINCTPCT</string>
+                    <string>EYE_EXTINCTDB</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -730,7 +736,7 @@ font: 16pt &quot;Arial&quot;;</string>
                   <widget class="QLineEdit" name="EYE_PKPKJITTER_le"/>
                  </item>
                  <item row="12" column="1">
-                  <widget class="QLineEdit" name="EYE_EXTINCTPCT_le"/>
+                  <widget class="QLineEdit" name="EYE_EXTINCTDB_le"/>
                  </item>
                  <item row="13" column="1">
                   <widget class="QLineEdit" name="EYE_PCTCROSS_le"/>
@@ -861,7 +867,7 @@ font: 16pt &quot;Arial&quot;;</string>
                <string/>
               </property>
              </widget>
-             <widget class="QLabel" name="label_5_extinctpct">
+             <widget class="QLabel" name="label_5_extinctdb">
               <property name="geometry">
                <rect>
                 <x>380</x>
@@ -929,9 +935,9 @@ font: 16pt &quot;Arial&quot;;</string>
              <widget class="QLabel" name="label_2_judge_state">
               <property name="geometry">
                <rect>
-                <x>110</x>
+                <x>100</x>
                 <y>660</y>
-                <width>171</width>
+                <width>191</width>
                 <height>71</height>
                </rect>
               </property>
@@ -965,7 +971,7 @@ font: 16pt &quot;Arial&quot;;</string>
                </rect>
               </property>
               <property name="title">
-               <string> </string>
+               <string/>
               </property>
               <widget class="QPushButton" name="pushButton_bias_translate">
                <property name="geometry">

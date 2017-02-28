@@ -41,7 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(t, SIGNAL(message(const QString &)),this, SLOT(stripCR(const QString &)));
     connect(t, SIGNAL(connectionError(QAbstractSocket::SocketError)),
             this, SLOT(telnetConnectionError(QAbstractSocket::SocketError)));
-    //connect(t, SIGNAL(loginRequired()),this, SLOT(telnetLoginRequired()));
     connect(t, SIGNAL(loginFailed()),this, SLOT(telnetLoginFailed()));
     connect(t, SIGNAL(loggedOut()),this, SLOT(telnetLoggedOut()));
     connect(t, SIGNAL(loggedIn()),this, SLOT(telnetLoggedIn()));
@@ -51,9 +50,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(dialog_db, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
     connect(this,SIGNAL(sendSnInfo(QString)),this,SLOT(getBoardSn(QString)));
     connect(this,SIGNAL(telnetmessage()),this, SLOT(loginState()));
-    connect(this,SIGNAL(calibrate_data()),this, SLOT(read_calibrate_data(BYTE *buf)));
+    connect(this,SIGNAL(calibrate_data()),this, SLOT(deal_calibrate_data()));
     connect(this,SIGNAL(savedata()),this, SLOT(on_pushButton_stop_clicked()));
-    //connect(this,SIGNAL(runautoset()),this, SLOT(on_pushButton_autoset_clicked()));
+    connect(this,SIGNAL(totranslationdata()),this, SLOT(translation_data()));
+    connect(this,SIGNAL(towritedata()),this, SLOT(write_calibrate_data()));
+    connect(this,SIGNAL(toreaddata()),this, SLOT(read_calibrate_data()));
+
 
     ui->pushButton_2_run->setDisabled(true);
     ui->pushButton_stop->setDisabled(true);
@@ -210,7 +212,7 @@ void MainWindow::on_pushButton_AutoTest_clicked()
     usleep(100000);
     set_wfmdbx_display(&gpib_proc.vi, 1, ON);
     //测试时间
-    int count = 8;
+    int count = 10;
     while(count){
         ui->textBrowser->append(QString("autotest is running...%1seconds").arg(count));
         sleep(1);
@@ -272,8 +274,8 @@ void MainWindow::on_pushButton_AutoTest_clicked()
         case EYE_PKPKJITTER:
             ui->EYE_PKPKJITTER_le->setText(rps);
             break;
-        case EYE_EXTINCTPCT:
-            ui->EYE_EXTINCTPCT_le->setText(rps);
+        case EYE_EXTINCTDB:
+            ui->EYE_EXTINCTDB_le->setText(rps);
             break;
         case EYE_PCTCROSS:
             ui->EYE_PCTCROSS_le->setText(rps);
@@ -594,20 +596,20 @@ void MainWindow::on_pushButton_configure_clicked()
         }
     }
 
-    /*13. eye_extinctpct*/
-    if (ui->EYE_EXTINCTPCT_chb->isChecked()){
-        meas_entry_t *meas_eye_extinctpct = (meas_entry_t *)malloc(sizeof(meas_entry_t));
-        memset(meas_eye_extinctpct,0,sizeof(meas_entry_t));
+    /*13. eye_extinctdb*/
+    if (ui->EYE_EXTINCTDB_chb->isChecked()){
+        meas_entry_t *meas_eye_extinctdb = (meas_entry_t *)malloc(sizeof(meas_entry_t));
+        memset(meas_eye_extinctdb,0,sizeof(meas_entry_t));
         if (index < 8){
             index++;
-            meas_entry_init(meas_eye_extinctpct, index, EYE_EXTINCTPCT);
+            meas_entry_init(meas_eye_extinctdb, index, EYE_EXTINCTDB);
             if (meas != NULL)
-                list_add(&meas_eye_extinctpct->list, &meas->list);
-            meas = meas_eye_extinctpct;
-            str_len += snprintf(res_str + str_len, RES_STR_MAX, "Meas: index=%d; type=EXTINCTPCT\n", index);
+                list_add(&meas_eye_extinctdb->list, &meas->list);
+            meas = meas_eye_extinctdb;
+            str_len += snprintf(res_str + str_len, RES_STR_MAX, "Meas: index=%d; type=EXTINCTDB\n", index);
 
             set_measurement_measx_sourcetype(&gpib_proc.vi, &meas_config, index, 1, meassource);
-            sprintf(cmd_str,"measurement:meas%d:type EXTINCTPCT",index);
+            sprintf(cmd_str,"measurement:meas%d:type EXTINCTDB",index);
             send_cmd(&gpib_proc.vi, cmd_str);
         }
     }
@@ -899,8 +901,8 @@ void MainWindow::on_pushButton_stop_clicked()
         case EYE_PKPKJITTER:
             out << "EYE_PKPKJITTER: " <<rps_value[meas_entry_first->meas_index-1] << "\n";
             break;
-        case EYE_EXTINCTPCT:
-            out << "EYE_EXTINCTPCT: " <<rps_value[meas_entry_first->meas_index-1] << "\n";
+        case EYE_EXTINCTDB:
+            out << "EYE_EXTINCTDB: " <<rps_value[meas_entry_first->meas_index-1] << "\n";
             break;
         case EYE_PCTCROSS:
             out << "EYE_PCTCROSS: " <<rps_value[meas_entry_first->meas_index-1] <<"\n";
@@ -935,10 +937,10 @@ void MainWindow::on_pushButton_stop_clicked()
     }
 
     out << "\n" << "PASS STANDARD: " << "\n";
-    out << "PCTCROSS: 47% ~ 53%" << "\n";
+    out << "PCTCROSS: 45% ~ 55%" << "\n";
     out << "RMSJitter * 14 + PKPKJitter < 260" << "\n";
     //out << "EXTICTRATIO: 14 dB >= EPON(MAX) >= 11dB ; 12.5 dB >= EPON(SEM) >= 10.5dB ; 14.5 dB >= GPON  >= 11.5dB ;" << "\n";
-    out << "EXTICTRATIO: 14.5 dB >= GPON  >= 3.3dB" << "\n";
+    out << "EXTICTRATIO: 17.8dB >= GPON  >= 11.2dB" << "\n";
     out << "MASK1=0,MASK2=0,MASK3=0 " << "\n";
 
     usleep(100000);
@@ -1035,12 +1037,12 @@ int MainWindow::loginState()
 
     if (msgGlobal.indexOf(login) >= 0){
         t->sendData("admin");
-        t->socket()->waitForBytesWritten(3000);
+        t->socket()->waitForBytesWritten(30000);
     }
 
     if (msgGlobal.indexOf(pwd,5) >= 0){
         t->sendData("1234");
-        t->socket()->waitForBytesWritten(3000);
+        t->socket()->waitForBytesWritten(30000);
         t->sendData("echo GPON_pattern > /proc/pon_phy/debug");
     }
 }
@@ -1051,7 +1053,7 @@ bool MainWindow::telnet_login()
     int i = 3;
     t->connectToHost("192.168.1.1");
     while (i--){
-        if (t->socket()->waitForConnected(5000)){
+        if (t->socket()->waitForConnected(30000)){
             qDebug() << "connected To Host";
             return true;
         }else{
@@ -1063,8 +1065,10 @@ bool MainWindow::telnet_login()
 
 QString MainWindow::stripCR(const QString &msg)
 {
-    //QString login = "tc login: ";
-    QString regData = "00000080";
+    QString login = "tc login: ";
+    QString pwd = "Password:";
+    QString regData1 = "\r\r\n0x0: 0x05";
+    QString regData2 = "00000080";
 
     msgGlobal = msg;
     qDebug() << msg;
@@ -1072,10 +1076,14 @@ QString MainWindow::stripCR(const QString &msg)
     nmsg.remove('\r');
     nmsg.remove(QRegExp("\033\\[[0-9;]*[A-Za-z]")); // Also remove terminal control codes
 
-    if (msgGlobal.indexOf(regData) >= 0){
+    if ((msgGlobal.indexOf(regData1) >= 0) && (msgGlobal.indexOf(regData1) >= 0)){
         emit calibrate_data();
-    } else{
+    } else if(msgGlobal.indexOf(login) >= 0){
         emit telnetmessage();
+    }else if (msgGlobal.indexOf(pwd) >= 0){
+        emit telnetmessage();
+    }else {
+
     }
 
     return nmsg;
@@ -1130,10 +1138,10 @@ bool MainWindow::testDataJudge()
         switch(meas_entry_first->meas_type){
         case EYE_EXTICTRATIO:
             value = QString(rps_value[meas_entry_first->meas_index-1]);
-            //qDebug() << "EXTICTRATIO" <<value;
+            //qDebug() << "EYE_EXTICTRATIO" <<value;
             data = value.toDouble(&ok);
-            //qDebug() << "EXTICTRATIO" << data;
-            if (data >= 3.3){
+            //qDebug() << "EYE_EXTICTRATIO" << data;
+            if (qAbs(data*1.3 - 14.5) <= 3.3){
                 ui->label_2_extinctratio->setText("pass");
                 ui->label_2_extinctratio->setFont(QFont("Arial",16,QFont::Bold));
                 pa.setColor(QPalette::WindowText,Qt::green);
@@ -1153,14 +1161,14 @@ bool MainWindow::testDataJudge()
         case EYE_PKPKJITTER:
             pkpkjitter = QString(rps_value[meas_entry_first->meas_index-1]);
             break;
-        case EYE_EXTINCTPCT:
+        case EYE_EXTINCTDB:
             break;
         case EYE_PCTCROSS:
             value = QString(rps_value[meas_entry_first->meas_index-1]);
             //qDebug() << "PCTCROSS" <<value;
             data = value.toDouble(&ok);
             //qDebug() << "PCTCROSS" << data;
-            if (qAbs(data - 50.0) <= 3){
+            if (qAbs(data - 50.0) <= 5){
                 ui->label_6_pctcross->setText("pass");
                 ui->label_6_pctcross->setFont(QFont("Arial",16,QFont::Bold));
                 pa.setColor(QPalette::WindowText,Qt::green);
@@ -1328,68 +1336,253 @@ void MainWindow::msec_sleep(int msec)
     QTime reachTime = QTime::currentTime().addMSecs(msec);
     while (QTime::currentTime() < reachTime)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-
 }
 
 void MainWindow::switch2table(int index)
 {
     t->sendData("\n");
-    t->socket()->waitForBytesWritten(3000);
+    t->socket()->waitForBytesWritten(30000);
     QByteArray CmdStringWr="sifm xw 0 0xc7 0xd1 1 0x7f 1 ";
     CmdStringWr.append(QString::number(index));
     t->sendData(CmdStringWr);
-    t->socket()->waitForBytesWritten(3000);
-    t->sendData("dmesg -c");
-    t->socket()->waitForBytesWritten(3000);
-    //t->socket()->waitForReadyRead(30000);
+    t->socket()->waitForBytesWritten(30000);
+    //t->sendData("dmesg -c");
+    //t->socket()->waitForBytesWritten(30000);
+
+    emit toreaddata();
 }
-#if 1
-void MainWindow::read_calibrate_data(BYTE *buf)
+
+void MainWindow::read_calibrate_data()
 {
-    //DWORD i=0;
-    bool ok;
-
     qDebug() << "read_calibrate_data";
-    t->sendData("\n");
-    t->socket()->waitForBytesWritten(3000);
+    //    t->sendData("\n");
+    //    t->socket()->waitForBytesWritten(30000);
     t->sendData("sifm xr 0 0xc7 0xd1 1 0x80 0x69");
-    t->socket()->waitForBytesWritten(3000);
+    t->socket()->waitForBytesWritten(30000);
     t->sendData("dmesg -c");
-    t->socket()->waitForBytesWritten(3000);
-    //此处发信号，在另外一个函数里处理下面的功能。
-
-        QString Target_string  =  msgGlobal.mid(msgGlobal.indexOf("00000080") + 10,msgGlobal.length());
-        qDebug()<< "Target_string1" << Target_string;
-
-        Target_string.replace(QString("\r\r\n00000080: "), QString(""));
-        Target_string.replace(QString("\r\r\n00000084: "), QString(""));
-        Target_string.replace(QString("\r\r\n00000088: "), QString(""));
-        Target_string.replace(QString("\r\r\n0000008c: "), QString(""));
-        Target_string.replace(QString("\r\r\n00000090: "), QString(""));
-        Target_string.replace(QString("\r\r\n00000094: "), QString(""));
-        Target_string.replace(QString("\r\r\n00000098: "), QString(""));
-        Target_string.replace(QString("\r\r\n0000009c: "), QString(""));
-        Target_string.replace(QString("\r\r\n000000a0: "), QString(""));
-        Target_string.replace(QString("\r\r\n000000a4: "), QString(""));
-        Target_string.replace(QString("\r\r\n000000a8: "), QString(""));
-        Target_string.replace(QString("\r\r\n000000ac: "), QString(""));
-        Target_string.replace(QString("\r\r\n000000b0: "), QString(""));
-        Target_string.replace(QString("\r\r\n000000b4: "), QString(""));
-
-        qDebug()<< "Target_string2" <<  Target_string;
-    //    QString Target;
-    //    for(i=0;i<0x69 ;i++)
-    //    {
-    //        Target="";
-    //        QString Target = Target_string.mid(i*5+2,2);
-    //        *(buf+i) =Target.toInt(&ok,16);
-    //    }
+    t->socket()->waitForBytesWritten(30000);
 }
-#endif
 
 void MainWindow::on_pushButton_bias_translate_clicked()
 {
+    t->sendData("dmesg -c");
+    t->socket()->waitForBytesWritten(30000);
     switch2table(5);
+    //read_calibrate_data();
+}
 
-    read_calibrate_data(databuf);
+void MainWindow::deal_calibrate_data()
+{
+    int i=0;
+    bool ok;
+
+    memset(databuf,0,sizeof(databuf));
+    QString Target_string  =  msgGlobal.mid(msgGlobal.indexOf("00000080") + 10,msgGlobal.length());
+    //qDebug()<< "Target_string1" << Target_string;
+
+    Target_string.replace(QString("\r\r\n00000080: "), QString(""));
+    Target_string.replace(QString("\r\r\n00000084: "), QString(""));
+    Target_string.replace(QString("\r\r\n00000088: "), QString(""));
+    Target_string.replace(QString("\r\r\n0000008c: "), QString(""));
+    Target_string.replace(QString("\r\r\n00000090: "), QString(""));
+    Target_string.replace(QString("\r\r\n00000094: "), QString(""));
+    Target_string.replace(QString("\r\r\n00000098: "), QString(""));
+    Target_string.replace(QString("\r\r\n0000009c: "), QString(""));
+    Target_string.replace(QString("\r\r\n000000a0: "), QString(""));
+    Target_string.replace(QString("\r\r\n000000a4: "), QString(""));
+    Target_string.replace(QString("\r\r\n000000a8: "), QString(""));
+    Target_string.replace(QString("\r\r\n000000ac: "), QString(""));
+    Target_string.replace(QString("\r\r\n000000b0: "), QString(""));
+    Target_string.replace(QString("\r\r\n000000b4: "), QString(""));
+
+    qDebug()<< "Target_string2" <<  Target_string;
+    QString Target;
+    for(i=0;i<0x69 ;i++)
+    {
+        Target="";
+        QString Target = Target_string.mid(i*5+2,2);
+        *(databuf+i) =Target.toInt(&ok,16);
+    }
+
+    emit totranslationdata();
+}
+
+void MainWindow::write_calibrate_data()
+{
+    int i=0, j=0;
+    QByteArray data;
+    BYTE temp;
+    qDebug()<< "write_calibrate_data";
+
+    QByteArray cmd_A0_wr("sifm xw 0 0xc7 0xd1 1 "); //A0闁告劖鐟ラ崣鍡涘川閹存帗濮?
+    QByteArray target_cmd = "";
+    BYTE address = 0x80;
+    for (i = 0; i <= 6; i++)
+    {
+        target_cmd = cmd_A0_wr;
+        target_cmd = target_cmd.append(" 0x");
+        target_cmd = target_cmd.append(QByteArray::number(address, 16));
+        address += 16;
+        if (i == 6){
+            target_cmd = target_cmd.append(" 0x09");
+            for (j = 0; j < 9; j++)
+            {
+
+                target_cmd = target_cmd.append(" 0x");
+                target_cmd = target_cmd.append(QByteArray::number(databuf[i *16+j], 16));
+            }
+        }else {
+            target_cmd = target_cmd.append(" 0x10");
+            for (j = 0; j < 16; j++)
+            {
+                target_cmd = target_cmd.append(" 0x");
+                target_cmd = target_cmd.append(QByteArray::number(databuf[i *16+j], 16));
+            }
+        }
+        qDebug()<< "target_cmd" << target_cmd;
+        t->sendData(target_cmd);
+        t->socket()->waitForBytesWritten(30000);
+    }
+
+    t->sendData("dmesg -c");
+    t->socket()->waitForBytesWritten(30000);
+//    t->sendData("sifm xr 0 0xc7 0xd1 1 0x80 0x69");
+//    t->socket()->waitForBytesWritten(30000);
+//    t->sendData("dmesg -c");
+//    t->socket()->waitForBytesWritten(30000);
+}
+
+void MainWindow::translation_data()
+{
+    int temp_data = 0x41;
+    int i = 0;
+    BYTE *p = databuf;
+    BYTE *p1 = databuf;
+    BYTE *p2 = databuf+1;
+    unsigned short num1change, num1result, num1reserve, num2change, num2result, num2reserve, result;
+    bool ok;
+    unsigned char index, index1, sum = 0;
+
+
+    QString dataAdd = ui->lineEdit_bias_translate->text();
+    int dataAddNum = dataAdd.toInt(&ok,16);
+    qDebug() << "dataAddNum" << dataAddNum;
+
+    while (i < 0x68){
+
+        index = temp_data - 65;
+        index1 = index >> 1;
+
+        sum = (index1 << 6);
+        sum = (sum >> 6);
+        //qDebug() << sum;
+
+        switch (sum) {
+        case 0:
+            num1change = *p1 << 2;
+            num2reserve = *p2 & 0x3f;
+            num2change = (*p2 >> 6) + dataAddNum;
+            result = num1change + num2change;
+            if (result >= 0x3ff){
+                num1result = 0xff;
+                num2result = (0x03 << 6) | num2reserve;
+            }else {
+                num2change = result & 0x03;
+                num1result = result >> 2;
+                num2result = (num2change << 6) + num2reserve;
+            }
+
+            //qDebug() << *p1 << *p2;
+            //p = (BYTE *)memcpy(p1,&num1result,1);
+            //memcpy(p2,&num2result,1);
+            *p1 = num1result;
+            *p2 = num2result;
+            //qDebug() << QString::number(*p1,16);
+            //qDebug() << QString::number(*p2,16);
+            break;
+        case 1:
+            num1reserve = *p1 & 0xc0;
+            num1change = (*p1 & 0x3f) << 4;
+            //num1change = num1change << 4;
+            num2reserve = *p2 & 0x0f;
+            num2change = (*p2 >> 4) + dataAddNum;
+            result = num1change + num2change;
+            if (result >= 0x3ff){
+                num1result = 0x03f | num1reserve;
+                num2result = (0x0f << 4) | num2reserve;
+            }else {
+                num2change = result & 0x0f;
+                num1result = (result >> 4) | num1reserve;
+                num2result = (num2change << 4) + num2reserve;
+            }
+
+            //qDebug() << *p1 << *p2;
+            //p = (BYTE *)memcpy(p1,&num1result,1);
+            //memcpy(p2,&num2result,1);
+            *p1 = num1result;
+            *p2 = num2result;
+            //qDebug() << QString::number(*p1,16);
+            //qDebug() << QString::number(*p2,16);
+            break;
+        case 2:
+            num1reserve = *p1 & 0xf0;
+            num1change = (*p1 & 0x0f) << 6;
+            num2reserve = *p2 & 0x03;
+            num2change = (*p2 >> 2) + dataAddNum;
+            result = num1change + num2change;
+            if (result >= 0x3ff){
+                num1result = 0x0f | num1reserve;
+                num2result = (0x3f << 2) | num2reserve;
+            }else {
+                num2change = result & 0x3f;
+                num1result = (result >> 6) | num1reserve;
+                num2result = (num2change << 2) + num2reserve;
+            }
+
+            //qDebug() << *p1 << *p2;
+            //p = (BYTE *)memcpy(p1,&num1result,1);
+            //memcpy(p2,&num2result,1);
+            *p1 = num1result;
+            *p2 = num2result;
+            //qDebug() << QString::number(*p1,16);
+            //qDebug() << QString::number(*p2,16);
+            break;
+        case 3:
+            num1reserve = *p1 & 0xfc;
+            num1change = (*p1 & 0x03) << 8;
+            num2reserve = *p2 & 0x00;
+            num2change = (*p2 >> 0) + dataAddNum;
+            result = num1change + num2change;
+            if (result >= 0x3ff){
+                num1result = 0x03 | num1reserve;
+                num2result = (0xff << 0) | num2reserve;
+            }else {
+                num2change = result & 0xff;
+                num1result = (result >> 8) | num1reserve;
+                num2result = (num2change << 0) + num2reserve;
+            }
+
+            //qDebug() << *p1 << *p2;
+            //p = (BYTE *)memcpy(p1,&num1result,1);
+            //memcpy(p2,&num2result,1);
+            *p1 = num1result;
+            *p2 = num2result;
+            //qDebug() << QString::number(*p1,16);
+            //qDebug() << QString::number(*p2,16);
+            break;
+        default:
+            break;
+        }
+
+        p1++;
+        p2++;
+        temp_data = temp_data + 2;
+        i ++;
+    }
+    //qDebug() << "i" << i;
+//    for (i = 0; i < 0x69; i++){
+//        qDebug() << QString::number(*p,16);
+//        p++;
+//    }
+    emit towritedata();
 }
