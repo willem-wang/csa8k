@@ -1591,12 +1591,6 @@ void MainWindow::translation_data()
 void MainWindow::on_pushButton_write_flash_clicked()
 {
     int i = 0, j = 0;
-//    BYTE *p = databuf;
-
-//    for (i = 0; i < 0x69; i++){
-//        qDebug() << QString::number(*p,16);
-//        p++;
-//    }
 
     QByteArray cmd_flash_wr("/userfs/bin/rw_table write /tmp/etc/MTK_A2.ini ");
     QByteArray target_cmd = "";
