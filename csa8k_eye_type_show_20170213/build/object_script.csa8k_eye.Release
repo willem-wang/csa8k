@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\csa8k_api_eye_pattern.o
+./release\dialog_db.o
+./release\dialog_meas.o
+./release\sql_db.o
+./release\option_parser.o
+./release\moc_mainwindow.o
+./release\moc_dialog_db.o
+./release\moc_dialog_meas.o
+);

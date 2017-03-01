@@ -1,0 +1,19 @@
+---- stripCR 匹配 (3 in 2 文件) ----
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    connect(t, SIGNAL(message(const QString &)),this, SLOT(stripCR(const QString &)));
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):QString MainWindow::stripCR(const QString &msg)
+Mainwindow.h (e:\qt_project\csa8k_eye_type_show_20170213\include):    QString stripCR(const QString &msg);
+---- message 匹配 (14 in 3 文件) ----
+Mainwindow.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    connect(t, SIGNAL(message(const QString &)),this, SLOT(stripCR(const QString &)));
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    and data using sendData(). Connect to the message() signal to
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):                emit q->message(text);    // Display the login prompt
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):                emit q->message(text);    // Display the password prompt
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):        emit q->message(text);
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    \value GoAhead Sends the \c GO \c AHEAD control message, meaning that the
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    message, to check if the connection is still alive.
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    The output will resume if you send this control message again.
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    \value Break Sends the \c BREAK control message.
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    \value EndOfFile Sends the \c END \c OF \c FILE control message.
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    \value Abort Sends the \c ABORT control message.
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    Sends the control message \a ctrl to the Telnet server the
+Qttelnet.cpp (e:\qt_project\csa8k_eye_type_show_20170213\src):    \fn void QtTelnet::message(const QString &data)
+Qttelnet.h (e:\qt_project\csa8k_eye_type_show_20170213\include):    void message(const QString &data);
