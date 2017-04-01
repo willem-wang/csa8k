@@ -1,0 +1,2 @@
+---- rw_table Æ¥Åä (1 in 1 ÎÄ¼ş) ----
+Mainwindow.cpp (e:\csa8k_eye_change\src):    QByteArray cmd_flash_wr("/userfs/bin/rw_table write /tmp/etc/MTK_A2.ini ");

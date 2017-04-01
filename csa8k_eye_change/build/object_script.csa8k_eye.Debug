@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\csa8k_api_eye_pattern.o
+./debug\dialog_db.o
+./debug\dialog_meas.o
+./debug\sql_db.o
+./debug\option_parser.o
+./debug\moc_mainwindow.o
+./debug\moc_dialog_db.o
+./debug\moc_dialog_meas.o
+);
