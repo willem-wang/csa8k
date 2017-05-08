@@ -1,0 +1,4 @@
+---- togetTableIndex Matches (3 in 2 files) ----
+Mainwindow.cpp (e:\csa8k_eye_change-ping\src):	connect(this,SIGNAL(togetTableIndex()),this, SLOT(getTableIndex()));
+Mainwindow.cpp (e:\csa8k_eye_change-ping\src):        emit togetTableIndex();
+Mainwindow.h (e:\csa8k_eye_change-ping\include):	void togetTableIndex();

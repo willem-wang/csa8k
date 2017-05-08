@@ -1,0 +1,418 @@
+/********************************************************************************
+** Form generated from reading UI file 'mainwindow.ui'
+**
+** Created by: Qt User Interface Compiler version 5.7.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
+#ifndef UI_MAINWINDOW_H
+#define UI_MAINWINDOW_H
+
+#include <QtCore/QVariant>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
+
+QT_BEGIN_NAMESPACE
+
+class Ui_MainWindow
+{
+public:
+    QAction *actionOpen_O;
+    QAction *actionClose_C;
+    QAction *actionNew_N;
+    QAction *actionDatabase_D;
+    QAction *actionMeasurment_M;
+    QWidget *centralWidget;
+    QHBoxLayout *horizontalLayout_2;
+    QWidget *MainLayout;
+    QHBoxLayout *horizontalLayout;
+    QWidget *LeftLayout;
+    QVBoxLayout *verticalLayout_3;
+    QGroupBox *ManualTestFrame;
+    QHBoxLayout *horizontalLayout_control;
+    QPushButton *pushButton_connect;
+    QPushButton *pushButton_disconnect;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_command;
+    QLineEdit *commandLine;
+    QHBoxLayout *horizontalLayout_commandButton;
+    QPushButton *pushButton_send;
+    QPushButton *pushButton_read;
+    QPushButton *pushButton_sendRead;
+    QTextBrowser *textBrowser_control;
+    QSpacerItem *verticalSpacer;
+    QGroupBox *AutoTestFrame;
+    QHBoxLayout *horizontalLayout_autoTest;
+    QPushButton *pushButton_AutoTest;
+    QVBoxLayout *verticalLayout_config;
+    QHBoxLayout *horizontalLayout_configButton;
+    QPushButton *pushButton_Connect;
+    QPushButton *pushButton_reset;
+    QPushButton *pushButton_configure;
+    QTextBrowser *textBrowser;
+    QSpacerItem *horizontalSpacer;
+    QWidget *RightLayout;
+    QHBoxLayout *horizontalLayout_3;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QWidget *tab_2;
+    QMenuBar *menuBar;
+    QMenu *menuOption_O;
+    QMenu *menuHelp_H;
+    QMenu *menuFile_F;
+    QToolBar *mainToolBar;
+    QStatusBar *statusBar;
+
+    void setupUi(QMainWindow *MainWindow)
+    {
+        if (MainWindow->objectName().isEmpty())
+            MainWindow->setObjectName(QStringLiteral("MainWindow"));
+        MainWindow->setEnabled(true);
+        MainWindow->resize(1600, 900);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        QFont font;
+        font.setFamily(QStringLiteral("Arial"));
+        MainWindow->setFont(font);
+        MainWindow->setAutoFillBackground(false);
+        actionOpen_O = new QAction(MainWindow);
+        actionOpen_O->setObjectName(QStringLiteral("actionOpen_O"));
+        actionClose_C = new QAction(MainWindow);
+        actionClose_C->setObjectName(QStringLiteral("actionClose_C"));
+        actionNew_N = new QAction(MainWindow);
+        actionNew_N->setObjectName(QStringLiteral("actionNew_N"));
+        actionDatabase_D = new QAction(MainWindow);
+        actionDatabase_D->setObjectName(QStringLiteral("actionDatabase_D"));
+        actionMeasurment_M = new QAction(MainWindow);
+        actionMeasurment_M->setObjectName(QStringLiteral("actionMeasurment_M"));
+        centralWidget = new QWidget(MainWindow);
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
+        centralWidget->setSizePolicy(sizePolicy1);
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        MainLayout = new QWidget(centralWidget);
+        MainLayout->setObjectName(QStringLiteral("MainLayout"));
+        sizePolicy.setHeightForWidth(MainLayout->sizePolicy().hasHeightForWidth());
+        MainLayout->setSizePolicy(sizePolicy);
+        horizontalLayout = new QHBoxLayout(MainLayout);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        LeftLayout = new QWidget(MainLayout);
+        LeftLayout->setObjectName(QStringLiteral("LeftLayout"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(6);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(LeftLayout->sizePolicy().hasHeightForWidth());
+        LeftLayout->setSizePolicy(sizePolicy2);
+        verticalLayout_3 = new QVBoxLayout(LeftLayout);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        ManualTestFrame = new QGroupBox(LeftLayout);
+        ManualTestFrame->setObjectName(QStringLiteral("ManualTestFrame"));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(2);
+        sizePolicy3.setHeightForWidth(ManualTestFrame->sizePolicy().hasHeightForWidth());
+        ManualTestFrame->setSizePolicy(sizePolicy3);
+        ManualTestFrame->setMinimumSize(QSize(0, 75));
+        horizontalLayout_control = new QHBoxLayout(ManualTestFrame);
+        horizontalLayout_control->setSpacing(6);
+        horizontalLayout_control->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_control->setObjectName(QStringLiteral("horizontalLayout_control"));
+        horizontalLayout_control->setContentsMargins(0, 0, 0, 0);
+        pushButton_connect = new QPushButton(ManualTestFrame);
+        pushButton_connect->setObjectName(QStringLiteral("pushButton_connect"));
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy4.setHorizontalStretch(1);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(pushButton_connect->sizePolicy().hasHeightForWidth());
+        pushButton_connect->setSizePolicy(sizePolicy4);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Arial"));
+        font1.setBold(true);
+        font1.setWeight(75);
+        pushButton_connect->setFont(font1);
+
+        horizontalLayout_control->addWidget(pushButton_connect);
+
+        pushButton_disconnect = new QPushButton(ManualTestFrame);
+        pushButton_disconnect->setObjectName(QStringLiteral("pushButton_disconnect"));
+        sizePolicy4.setHeightForWidth(pushButton_disconnect->sizePolicy().hasHeightForWidth());
+        pushButton_disconnect->setSizePolicy(sizePolicy4);
+        pushButton_disconnect->setFont(font1);
+
+        horizontalLayout_control->addWidget(pushButton_disconnect);
+
+        groupBox = new QGroupBox(ManualTestFrame);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy5.setHorizontalStretch(8);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy5);
+        groupBox->setAutoFillBackground(false);
+        verticalLayout_command = new QVBoxLayout(groupBox);
+        verticalLayout_command->setSpacing(6);
+        verticalLayout_command->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_command->setObjectName(QStringLiteral("verticalLayout_command"));
+        verticalLayout_command->setContentsMargins(0, 0, 0, 0);
+        commandLine = new QLineEdit(groupBox);
+        commandLine->setObjectName(QStringLiteral("commandLine"));
+        sizePolicy.setHeightForWidth(commandLine->sizePolicy().hasHeightForWidth());
+        commandLine->setSizePolicy(sizePolicy);
+        commandLine->setFont(font);
+
+        verticalLayout_command->addWidget(commandLine);
+
+        horizontalLayout_commandButton = new QHBoxLayout();
+        horizontalLayout_commandButton->setSpacing(6);
+        horizontalLayout_commandButton->setObjectName(QStringLiteral("horizontalLayout_commandButton"));
+        pushButton_send = new QPushButton(groupBox);
+        pushButton_send->setObjectName(QStringLiteral("pushButton_send"));
+        sizePolicy.setHeightForWidth(pushButton_send->sizePolicy().hasHeightForWidth());
+        pushButton_send->setSizePolicy(sizePolicy);
+        pushButton_send->setFont(font1);
+
+        horizontalLayout_commandButton->addWidget(pushButton_send);
+
+        pushButton_read = new QPushButton(groupBox);
+        pushButton_read->setObjectName(QStringLiteral("pushButton_read"));
+        sizePolicy.setHeightForWidth(pushButton_read->sizePolicy().hasHeightForWidth());
+        pushButton_read->setSizePolicy(sizePolicy);
+        pushButton_read->setFont(font1);
+
+        horizontalLayout_commandButton->addWidget(pushButton_read);
+
+        pushButton_sendRead = new QPushButton(groupBox);
+        pushButton_sendRead->setObjectName(QStringLiteral("pushButton_sendRead"));
+        sizePolicy.setHeightForWidth(pushButton_sendRead->sizePolicy().hasHeightForWidth());
+        pushButton_sendRead->setSizePolicy(sizePolicy);
+        pushButton_sendRead->setFont(font1);
+
+        horizontalLayout_commandButton->addWidget(pushButton_sendRead);
+
+
+        verticalLayout_command->addLayout(horizontalLayout_commandButton);
+
+
+        horizontalLayout_control->addWidget(groupBox);
+
+
+        verticalLayout_3->addWidget(ManualTestFrame);
+
+        textBrowser_control = new QTextBrowser(LeftLayout);
+        textBrowser_control->setObjectName(QStringLiteral("textBrowser_control"));
+        QSizePolicy sizePolicy6(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(8);
+        sizePolicy6.setHeightForWidth(textBrowser_control->sizePolicy().hasHeightForWidth());
+        textBrowser_control->setSizePolicy(sizePolicy6);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Arial"));
+        font2.setBold(false);
+        font2.setWeight(50);
+        textBrowser_control->setFont(font2);
+
+        verticalLayout_3->addWidget(textBrowser_control);
+
+        verticalSpacer = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_3->addItem(verticalSpacer);
+
+        AutoTestFrame = new QGroupBox(LeftLayout);
+        AutoTestFrame->setObjectName(QStringLiteral("AutoTestFrame"));
+        sizePolicy3.setHeightForWidth(AutoTestFrame->sizePolicy().hasHeightForWidth());
+        AutoTestFrame->setSizePolicy(sizePolicy3);
+        AutoTestFrame->setMinimumSize(QSize(0, 75));
+        horizontalLayout_autoTest = new QHBoxLayout(AutoTestFrame);
+        horizontalLayout_autoTest->setSpacing(6);
+        horizontalLayout_autoTest->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_autoTest->setObjectName(QStringLiteral("horizontalLayout_autoTest"));
+        horizontalLayout_autoTest->setContentsMargins(0, 0, 0, 0);
+        pushButton_AutoTest = new QPushButton(AutoTestFrame);
+        pushButton_AutoTest->setObjectName(QStringLiteral("pushButton_AutoTest"));
+        sizePolicy.setHeightForWidth(pushButton_AutoTest->sizePolicy().hasHeightForWidth());
+        pushButton_AutoTest->setSizePolicy(sizePolicy);
+        pushButton_AutoTest->setFont(font1);
+
+        horizontalLayout_autoTest->addWidget(pushButton_AutoTest);
+
+        verticalLayout_config = new QVBoxLayout();
+        verticalLayout_config->setSpacing(6);
+        verticalLayout_config->setObjectName(QStringLiteral("verticalLayout_config"));
+        horizontalLayout_configButton = new QHBoxLayout();
+        horizontalLayout_configButton->setSpacing(6);
+        horizontalLayout_configButton->setObjectName(QStringLiteral("horizontalLayout_configButton"));
+        pushButton_Connect = new QPushButton(AutoTestFrame);
+        pushButton_Connect->setObjectName(QStringLiteral("pushButton_Connect"));
+        sizePolicy.setHeightForWidth(pushButton_Connect->sizePolicy().hasHeightForWidth());
+        pushButton_Connect->setSizePolicy(sizePolicy);
+        pushButton_Connect->setFont(font1);
+
+        horizontalLayout_configButton->addWidget(pushButton_Connect);
+
+        pushButton_reset = new QPushButton(AutoTestFrame);
+        pushButton_reset->setObjectName(QStringLiteral("pushButton_reset"));
+        sizePolicy.setHeightForWidth(pushButton_reset->sizePolicy().hasHeightForWidth());
+        pushButton_reset->setSizePolicy(sizePolicy);
+        pushButton_reset->setFont(font1);
+
+        horizontalLayout_configButton->addWidget(pushButton_reset);
+
+        pushButton_configure = new QPushButton(AutoTestFrame);
+        pushButton_configure->setObjectName(QStringLiteral("pushButton_configure"));
+        sizePolicy.setHeightForWidth(pushButton_configure->sizePolicy().hasHeightForWidth());
+        pushButton_configure->setSizePolicy(sizePolicy);
+        pushButton_configure->setFont(font1);
+
+        horizontalLayout_configButton->addWidget(pushButton_configure);
+
+
+        verticalLayout_config->addLayout(horizontalLayout_configButton);
+
+
+        horizontalLayout_autoTest->addLayout(verticalLayout_config);
+
+
+        verticalLayout_3->addWidget(AutoTestFrame);
+
+        textBrowser = new QTextBrowser(LeftLayout);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+        sizePolicy6.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
+        textBrowser->setSizePolicy(sizePolicy6);
+
+        verticalLayout_3->addWidget(textBrowser);
+
+
+        horizontalLayout->addWidget(LeftLayout);
+
+        horizontalSpacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        RightLayout = new QWidget(MainLayout);
+        RightLayout->setObjectName(QStringLiteral("RightLayout"));
+        QSizePolicy sizePolicy7(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy7.setHorizontalStretch(4);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(RightLayout->sizePolicy().hasHeightForWidth());
+        RightLayout->setSizePolicy(sizePolicy7);
+        horizontalLayout_3 = new QHBoxLayout(RightLayout);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        tabWidget = new QTabWidget(RightLayout);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        sizePolicy7.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy7);
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        tabWidget->addTab(tab_2, QString());
+
+        horizontalLayout_3->addWidget(tabWidget);
+
+
+        horizontalLayout->addWidget(RightLayout);
+
+
+        horizontalLayout_2->addWidget(MainLayout);
+
+        MainWindow->setCentralWidget(centralWidget);
+        menuBar = new QMenuBar(MainWindow);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 1600, 23));
+        menuOption_O = new QMenu(menuBar);
+        menuOption_O->setObjectName(QStringLiteral("menuOption_O"));
+        menuHelp_H = new QMenu(menuBar);
+        menuHelp_H->setObjectName(QStringLiteral("menuHelp_H"));
+        menuFile_F = new QMenu(menuBar);
+        menuFile_F->setObjectName(QStringLiteral("menuFile_F"));
+        MainWindow->setMenuBar(menuBar);
+        mainToolBar = new QToolBar(MainWindow);
+        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
+        statusBar = new QStatusBar(MainWindow);
+        statusBar->setObjectName(QStringLiteral("statusBar"));
+        MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuFile_F->menuAction());
+        menuBar->addAction(menuOption_O->menuAction());
+        menuBar->addAction(menuHelp_H->menuAction());
+        menuOption_O->addAction(actionDatabase_D);
+        menuOption_O->addAction(actionMeasurment_M);
+        menuFile_F->addAction(actionNew_N);
+        menuFile_F->addAction(actionOpen_O);
+        menuFile_F->addAction(actionClose_C);
+
+        retranslateUi(MainWindow);
+
+        tabWidget->setCurrentIndex(1);
+
+
+        QMetaObject::connectSlotsByName(MainWindow);
+    } // setupUi
+
+    void retranslateUi(QMainWindow *MainWindow)
+    {
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        actionOpen_O->setText(QApplication::translate("MainWindow", "Open(&O)", 0));
+        actionClose_C->setText(QApplication::translate("MainWindow", "Close(&C)", 0));
+        actionNew_N->setText(QApplication::translate("MainWindow", "New(&N)", 0));
+        actionDatabase_D->setText(QApplication::translate("MainWindow", "Database(&D)", 0));
+        actionMeasurment_M->setText(QApplication::translate("MainWindow", "Measurment(&M)", 0));
+        pushButton_connect->setText(QApplication::translate("MainWindow", "Connect", 0));
+        pushButton_disconnect->setText(QApplication::translate("MainWindow", "Disconnect", 0));
+        pushButton_send->setText(QApplication::translate("MainWindow", "Send Command", 0));
+        pushButton_read->setText(QApplication::translate("MainWindow", "Read Response", 0));
+        pushButton_sendRead->setText(QApplication::translate("MainWindow", "Send and Read", 0));
+        pushButton_AutoTest->setText(QApplication::translate("MainWindow", "Auto Test", 0));
+        pushButton_Connect->setText(QApplication::translate("MainWindow", "Connect", 0));
+        pushButton_reset->setText(QApplication::translate("MainWindow", "Reset", 0));
+        pushButton_configure->setText(QApplication::translate("MainWindow", "Configure", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
+        menuOption_O->setTitle(QApplication::translate("MainWindow", "Option(&O)", 0));
+        menuHelp_H->setTitle(QApplication::translate("MainWindow", "Help(&H)", 0));
+        menuFile_F->setTitle(QApplication::translate("MainWindow", "File(&F)", 0));
+    } // retranslateUi
+
+};
+
+namespace Ui {
+    class MainWindow: public Ui_MainWindow {};
+} // namespace Ui
+
+QT_END_NAMESPACE
+
+#endif // UI_MAINWINDOW_H
